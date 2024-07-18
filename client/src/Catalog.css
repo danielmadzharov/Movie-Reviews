@@ -1,0 +1,45 @@
+.catalog-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.catalog-card {
+    max-width: 455px;
+}
+
+.catalog-card-header {
+    font-family: "Times-New-Roman";
+}
+
+.catalog-avatar {
+    background-color: #1976D2;
+}
+
+.catalog-card-media {
+    height: 300px;
+}
+
+.catalog-card-content {
+    font-family: "Times-New-Roman";
+}
+
+.catalog-card-actions {
+    justify-content: center;
+}
+
+.catalog-link {
+    text-decoration: none;
+}
+
+.catalog-button {
+    font-family: "Times-New-Roman"; 
+    background-color: #1976D2; 
+    border-radius: 20px; 
+    font-size: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+}
