@@ -4,7 +4,7 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import Avatar from '@mui/material/Avatar';
 import styles from './Catalog.module.css';  // Import the CSS module
-import * as request from '../../api/requester';
+// import {getAll} from '../../api/requester';
 import { getAll } from '../../api/moviesApi';
 import { Link } from 'react-router-dom';
 import DetailsButton from './details-button/DetailsButton';
@@ -13,10 +13,10 @@ export default function Catalog() {
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        getAll().then(result => setMovies(Object.values(result)));
+        getAll().then(result => setMovies(result));
     }, []);
 
-    console.log(movies);
+    // console.log(movies);
     return (
         <div className={styles.catalogContainer}>
             {movies.map((movie) => (
@@ -24,7 +24,7 @@ export default function Catalog() {
                     <div className={styles.catalogCardOverlay}>
                         <p className={styles.catalogDescriptionOverlay}>{movie.summary_text}</p>
                         <div className={styles.detailsButtonContainer}>
-                            <Link to={`/details/${movie._id}`} className={styles.catalogLink}>
+                            <Link to={`/details/${movie.ImdbId}`} className={styles.catalogLink}>
                                 <DetailsButton />
                             </Link>
                         </div>

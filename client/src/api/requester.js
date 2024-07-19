@@ -11,8 +11,8 @@ if(data){
     options.body = JSON.stringify(data);
 }
 const response = await fetch(url, options);
-const result = response.json();
-
+const result =  await response.json();
+// console.log(response)
 return result;
 
 }

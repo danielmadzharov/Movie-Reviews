@@ -1,25 +1,37 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import movieApi from '../../api/moviesApi';
+
 
 export default function Details() {
+  const { movieId } = useParams();
+  const [movie, setMovie] = useState({});
+  console.log(movieId)
+
+  useEffect(() => {
+      movieApi.getById(movieId).then(result => setMovie(result));
+
+  },[]);
+
+
   return (
     <Card sx={{ maxWidth: 1000, position: 'relative', paddingLeft: '100px' }}>
       <CardMedia
         component="img"
-        alt="green iguana"
+        alt={movie.name}
         height="500"
-        image="{movie.posterUrl}"
+        image={movie.poster_url}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {movie.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          {movie.description}
         </Typography>
       </CardContent>
     </Card>
