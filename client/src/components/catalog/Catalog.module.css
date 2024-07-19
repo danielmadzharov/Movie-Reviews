@@ -1,0 +1,63 @@
+.catalogContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.catalogCard {
+    width: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+.catalogCardHeader {
+    font-family: "Times-New-Roman";
+}
+
+.catalogAvatar {
+    background-color: #1976D2 !important;
+}
+
+.catalogCardMedia {
+    height: 500px;
+    width: 100%;
+}
+
+.catalogCardOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.catalogDescriptionOverlay {
+    padding: 15px;
+    text-align: center;
+}
+
+.catalogCard:hover .catalogCardOverlay {
+    opacity: 1;
+}
+
+.catalogLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.detailsButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}

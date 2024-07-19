@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import Header from './components/Header'
-import Catalog from './components/Catalog'
+import Header from './components/header/Header'
+import Catalog from './components/catalog/Catalog'
 import { Routes, Route } from 'react-router-dom';
-import Login from './components/Login';
-import Register from './components/Register';
+import Login from './components/login/Login';
+import Register from './components/register/Register';
+import Details from './components/details/details';
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
     <Route path='/' element={<Catalog/>}/>
     <Route path='/login' element={<Login/>}/>
     <Route path='/register' element={<Register/>}/>
+    <Route path='/details' element={<Details/>}/>
 
     </Routes>
     </>

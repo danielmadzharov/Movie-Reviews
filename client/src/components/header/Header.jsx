@@ -52,12 +52,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Header() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1, padding:'30px' }}>
+      <AppBar position="absolute">
         <Toolbar>
           <Box
             sx={{
-              display: 'flex',
+              display: 'block',
               flexDirection: 'column',
               alignItems: 'center',
               '& > *': {
