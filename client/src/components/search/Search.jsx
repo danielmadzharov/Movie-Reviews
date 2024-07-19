@@ -3,21 +3,27 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import Avatar from '@mui/material/Avatar';
-import styles from './Catalog.module.css'; 
+import styles from '../catalog/Catalog.module.css'; 
 import { getAll } from '../../api/moviesApi';
-import { Link } from 'react-router-dom';
-import DetailsButton from './details-button/DetailsButton';
+import { Link, useLocation } from 'react-router-dom';
+import DetailsButton from '../catalog/details-button/DetailsButton';
 
-export default function Catalog() {
+export default function SearchResults() {
     const [movies, setMovies] = useState([]);
+    const location = useLocation();
+    const query = new URLSearchParams(location.search).get('query') || '';
 
     useEffect(() => {
         getAll().then(result => setMovies(result));
     }, []);
 
+    const filteredMovies = movies.filter(movie =>
+        movie.name.toLowerCase().includes(query.toLowerCase())
+    );
+
     return (
         <div className={styles.catalogContainer}>
-            {movies.map((movie) => (
+            {filteredMovies.map((movie) => (
                 <Card key={movie._id} className={styles.catalogCard}>
                     <div className={styles.catalogCardOverlay}>
                         <p className={styles.catalogDescriptionOverlay}>{movie.summary_text}</p>

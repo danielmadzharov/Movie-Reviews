@@ -1,13 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import movieApi from '../../api/moviesApi';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+// import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 
 
 export default function Details() {
+  const handleChange = (panel) => (event, isExpanded) => {
+    const [expanded, setExpanded] = React.useState(false);
+    setExpanded(isExpanded ? panel : false);
+  };
+  
+
+
   const { movieId } = useParams();
   const [movie, setMovie] = useState({});
   console.log(movieId)
@@ -19,21 +31,22 @@ export default function Details() {
 
 
   return (
-    <Card sx={{ maxWidth: 1000, position: 'relative', paddingLeft: '100px' }}>
-      <CardMedia
-        component="img"
-        alt={movie.name}
-        height="500"
-        image={movie.poster_url}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {movie.name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {movie.description}
-        </Typography>
-      </CardContent>
-    </Card>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
+      <Card sx={{ maxWidth: 2000 }}>
+        <CardMedia
+          component="img"
+          alt={movie.name}
+          height="700"
+          image={movie.poster_url}
+        />
+        {/* <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+          </Typography>
+        </CardContent> */}
+      </Card>
+    
+    </div>
   );
 }

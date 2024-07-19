@@ -7,7 +7,10 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Switch from '@mui/material/Switch';
+
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -51,8 +54,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = React.useState('');
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?query=${searchQuery}`);
+    }
+  };
+
   return (
-    <Box sx={{ flexGrow: 1, padding:'30px' }}>
+    <Box sx={{ flexGrow: 1, padding: '30px' }}>
       <AppBar position="absolute">
         <Toolbar>
           <Box
@@ -71,15 +88,21 @@ export default function Header() {
               </Button>
             </ButtonGroup>
           </Box>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+
+          <form onSubmit={handleSearchSubmit} style={{ display: 'flex', flexGrow: 1 }}>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'enter movie name' }}
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
+            </Search>
+          </form>
+
           <ButtonGroup variant="outlined" aria-label="Basic button group">
             <Button component={Link} to="/login" style={{ color: 'white' }}>
               Login
@@ -88,6 +111,20 @@ export default function Header() {
               Register
             </Button>
           </ButtonGroup>
+
+          <Switch
+            {...label}
+            defaultChecked
+            sx={{
+              '& .MuiSwitch-switchBase.Mui-checked': {
+                color: 'white',
+              },
+              '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                backgroundColor: 'white',
+                color: 'black',
+              },
+            }}
+          />
         </Toolbar>
       </AppBar>
     </Box>
