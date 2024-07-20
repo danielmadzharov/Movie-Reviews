@@ -2,51 +2,61 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
 import movieApi from '../../api/moviesApi';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-// import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import styles from './Details.module.css';
 
 
-
-export default function Details() {
-  const handleChange = (panel) => (event, isExpanded) => {
-    const [expanded, setExpanded] = React.useState(false);
-    setExpanded(isExpanded ? panel : false);
-  };
-  
-
-
+export default function Details() {  
   const { movieId } = useParams();
   const [movie, setMovie] = useState({});
-  console.log(movieId)
 
   useEffect(() => {
-      movieApi.getById(movieId).then(result => setMovie(result));
+    movieApi.getById(movieId).then(result => setMovie(result));
+  }, [movieId]);
 
-  },[]);
-
+  const { 
+    name: title, 
+    poster_url: posterUrl, 
+    year, 
+    certificate, 
+    runtime, 
+    genre, 
+    ratingValue, 
+    summary_text: summaryText, 
+    ratingCount, 
+    director, 
+    cast 
+  } = movie;
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
-      <Card sx={{ maxWidth: 2000 }}>
-        <CardMedia
-          component="img"
-          alt={movie.name}
-          height="700"
-          image={movie.poster_url}
-        />
-        {/* <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-          </Typography>
-        </CardContent> */}
+    <div className={styles.container}>
+      <Card className={styles.card}>
+        <div className={styles.imageContainer}>
+          <h2 className={styles.title}>{title}</h2>
+          <CardMedia
+            component="img"
+            alt={title}
+            height="500"
+            image={posterUrl}
+            className={styles.image}
+          />
+        </div>
+        <div className={styles.details}>
+          <p>Year: {year}</p>
+          <p>Certificate: {certificate}</p>
+          <p>Runtime: {runtime}</p>
+          <p>Genre: {genre?.join(', ')}</p>
+          <p>Rating: {ratingValue}</p>
+          <p>Summary: {summaryText}</p>
+          <p>Rating Count: {ratingCount}</p>
+          <p>Director: {director?.name}</p>
+          <ul>
+            {cast?.map((actor, index) => (
+              <li key={index}>{actor.name}</li>
+            ))}
+          </ul>
+        </div>
       </Card>
-    
     </div>
   );
 }
