@@ -1,17 +1,17 @@
-import * as request from './requester'
+import * as requester from './requester.js'
 
 const BASE_URL = 'http://localhost:3030/jsonstore/Movies'
 export const getAll =  async () => {
-    const result = await request.get(BASE_URL)
+    const result = await requester.get(BASE_URL)
     const movies = Object.values(result)
     return movies;
 }
-export const getById = async (movieId) => request.get(`${BASE_URL}/${movieId}`);
+export const getById = async (movieId) => requester.get(`${BASE_URL}/${movieId}`);
 
 
 const movieApi = {
     getAll,
-    getById
+    getById,
 }
 
 export default movieApi;
