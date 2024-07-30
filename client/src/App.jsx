@@ -5,19 +5,24 @@ import Login from './components/login/Login';
 import Register from './components/register/Register';
 import Details from './components/details/Details';
 import SearchResults from './components/search/Search';
+import { AuthContextProvider } from './contexts/authContext';
+import Logout from './components/logout/Logout';
 
 function App() {
   return (
-    <>
+    <AuthContextProvider>
+    <div id='box'>
     <Header />
     <Routes>
     <Route path='/' element={<Catalog/>}/>
     <Route path='/login' element={<Login/>}/>
     <Route path='/register' element={<Register/>}/>
     <Route path='/details/:movieId' element={<Details/>}/>
+    <Route path='/logout' element={<Logout />} />
     <Route path='/search/' element={<SearchResults/>}/>
     </Routes>
-    </>
+    </div>
+    </AuthContextProvider>
   )
 }
 

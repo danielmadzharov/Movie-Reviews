@@ -61,3 +61,8 @@
     align-items: center;
     margin-top: 10px;
 }
+.noResultsTitle{
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 400 !important;
+}

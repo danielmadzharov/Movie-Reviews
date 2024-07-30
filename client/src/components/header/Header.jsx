@@ -8,7 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { Link, useNavigate } from 'react-router-dom';
-import Switch from '@mui/material/Switch';
+import { useAuthContext } from '../../contexts/authContext';
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
@@ -54,6 +54,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
+  const { isAuthenticated } = useAuthContext();
+
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = React.useState('');
 
@@ -104,27 +106,21 @@ export default function Header() {
           </form>
 
           <ButtonGroup variant="outlined" aria-label="Basic button group">
-            <Button component={Link} to="/login" style={{ color: 'white' }}>
-              Login
-            </Button>
-            <Button component={Link} to="/register" style={{ color: 'white' }}>
-              Register
-            </Button>
+            {isAuthenticated ? (
+              <Button component={Link} to="/logout" style={{ color: 'white' }}>
+                Logout
+              </Button>
+            ) : (
+              <>
+                <Button component={Link} to="/login" style={{ color: 'white' }}>
+                  Login
+                </Button>
+                <Button component={Link} to="/register" style={{ color: 'white' }}>
+                  Register
+                </Button>
+              </>
+            )}
           </ButtonGroup>
-
-          <Switch
-            {...label}
-            defaultChecked
-            sx={{
-              '& .MuiSwitch-switchBase.Mui-checked': {
-                color: 'white',
-              },
-              '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                backgroundColor: 'white',
-                color: 'black',
-              },
-            }}
-          />
         </Toolbar>
       </AppBar>
     </Box>

@@ -10,20 +10,34 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-
+import { useNavigate } from "react-router-dom";
+import { useRegister } from "../../hooks/useAuth.js";
+import { useForm } from "../../hooks/useForm.js";
+import { useState } from "react";
 
 const defaultTheme = createTheme();
 
+const initialValues = { email: '', password: '', 'confirm-password': '' };
+
 export default function Register() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const [error, setError] = useState('');
+  const register = useRegister();
+  const navigate = useNavigate();
+
+  const registerHandler = async (values) => {
+    if (values.password !== values['confirm-password']) {
+      return setError('Password mismatch!');
+    }
+
+    try {
+      await register(values.email, values.password);
+      navigate('/');
+    } catch (err) {
+      setError(err.message);
+    }
   };
+
+  const { values, changeHandler, submitHandler } = useForm(initialValues, registerHandler);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -43,7 +57,7 @@ export default function Register() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={submitHandler} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -53,6 +67,8 @@ export default function Register() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={values.email}
+                  onChange={changeHandler}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -64,11 +80,28 @@ export default function Register() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={values.password}
+                  onChange={changeHandler}
                 />
               </Grid>
               <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="confirm-password"
+                  label="Confirm Password"
+                  type="password"
+                  id="confirm-password"
+                  value={values['confirm-password']}
+                  onChange={changeHandler}
+                />
               </Grid>
             </Grid>
+            {error && (
+              <Typography color="error" variant="body2" align="center">
+                {error}
+              </Typography>
+            )}
             <Button
               type="submit"
               fullWidth
