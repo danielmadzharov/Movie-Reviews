@@ -7,6 +7,7 @@ import Details from './components/details/Details';
 import SearchResults from './components/search/Search';
 import { AuthContextProvider } from './contexts/authContext';
 import Logout from './components/logout/Logout';
+import CreateMovie from './components/create-movie/CreateMovie';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
     <Route path='/details/:movieId' element={<Details/>}/>
     <Route path='/logout' element={<Logout />} />
     <Route path='/search/' element={<SearchResults/>}/>
+    <Route path='/create' element={<CreateMovie/>}/>
     </Routes>
     </div>
     </AuthContextProvider>

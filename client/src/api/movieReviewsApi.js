@@ -1,20 +1,21 @@
 import requester from "./requester.js";
 
-const BASE_URL = 'http://localhost:3030/jsonstore/Movies';
+const BASE_URL = 'http://localhost:3030/data/movieReviews';
 
-const buildUrl = (movieId) => `${BASE_URL}/${movieId}/reviews`;
+const create = (movieId, text) => requester.post(BASE_URL, { movieId, text });
 
-const create = async (movieId, text) => await requester.post(buildUrl(movieId), { text });
-
-const getAll = async (movieId) => {
-    const result = await requester.get(buildUrl(movieId));
-
-    const reviews = Object.values(result);
-
-    return reviews;
+const getAll = (movieId) => {
+    const params = new URLSearchParams({
+        where: `movieId="${movieId}"`,
+        load: `author=_ownerId:users`
+    });
+    
+    return requester.get(`${BASE_URL}?${params.toString()}`);
 }
 
-export default {
+const movieReviewsAPI = {
     create,
-    getAll,
+    getAll
 };
+
+export default movieReviewsAPI;

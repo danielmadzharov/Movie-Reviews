@@ -22,7 +22,7 @@ export default function Catalog() {
                     <div className={styles.catalogCardOverlay}>
                         <p className={styles.catalogDescriptionOverlay}>{movie.summary_text}</p>
                         <div className={styles.detailsButtonContainer}>
-                            <Link to={`/details/${movie.ImdbId}`} className={styles.catalogLink}>
+                            <Link to={`/details/${movie._id}`} className={styles.catalogLink}>
                                 <DetailsButton />
                             </Link>
                         </div>

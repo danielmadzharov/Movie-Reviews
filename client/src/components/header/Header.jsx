@@ -107,9 +107,14 @@ export default function Header() {
 
           <ButtonGroup variant="outlined" aria-label="Basic button group">
             {isAuthenticated ? (
+              <>
+              <Button component={Link} to="/create" style={{ color: 'white' }}>
+                Create Movie
+              </Button>
               <Button component={Link} to="/logout" style={{ color: 'white' }}>
                 Logout
               </Button>
+              </>
             ) : (
               <>
                 <Button component={Link} to="/login" style={{ color: 'white' }}>

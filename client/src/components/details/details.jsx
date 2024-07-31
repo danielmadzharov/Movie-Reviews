@@ -7,11 +7,14 @@ import TextField from '@mui/material/TextField';
 import movieApi from '../../api/moviesApi';
 import reviewsApi from '../../api/movieReviewsApi'; 
 import styles from './Details.module.css';
+import { useAuthContext } from '../../contexts/authContext';
 
 export default function Details() {  
   const { movieId } = useParams();
   const [movie, setMovie] = useState({});
   const [review, setReview] = useState('');
+  const { isAuthenticated } = useAuthContext();
+  const { email, userId } = useAuthContext();
 
   useEffect(() => {
     movieApi.getById(movieId).then(result => setMovie(result));
@@ -32,6 +35,7 @@ export default function Details() {
 
     setReview('');
   };
+  const isOwner = userId == movie._ownerId;
 
   const { 
     name: title, 
@@ -43,8 +47,7 @@ export default function Details() {
     ratingValue, 
     summary_text: summaryText, 
     ratingCount, 
-    director, 
-    cast 
+    director 
   } = movie;
 
   return (
@@ -58,7 +61,14 @@ export default function Details() {
             height="500"
             image={posterUrl}
             className={styles.image}
+            
           />
+          {isOwner && isAuthenticated &&(
+          <div className='edit-delete-container'>
+          <Button variant="contained" className='edit-btn' style={{margin: '10px'}}>Edit</Button>
+          <Button variant="contained" className='delete-btn'style={{margin: '10px'}}>Delete</Button>
+          </div>
+          )}
         </div>
         <div className={styles.details}>
           <p>Year: {year}</p>
@@ -69,11 +79,6 @@ export default function Details() {
           <p>Summary: {summaryText}</p>
           <p>Rating Count: {ratingCount}</p>
           <p>Director: {director?.name}</p>
-          <ul>
-            {cast?.map((actor, index) => (
-              <li key={index}>{actor.name}</li>
-            ))}
-          </ul>
         </div>
       </Card>
       <Card className={styles.card} style={{
@@ -81,6 +86,8 @@ export default function Details() {
         display: 'flex',
         flexDirection: 'column'
       }}>
+
+      {isAuthenticated && (
         <form 
           onSubmit={handleReviewSubmit} 
           style={{
@@ -105,20 +112,24 @@ export default function Details() {
             Submit
           </Button>
         </form>
-        <div className="details-reviews">
-          <h2>Reviews:</h2>
-          <ul>
-            {movie.reviews && Object.keys(movie.reviews).length > 0
-              ? Object.values(movie.reviews).map(review => (
-                  <li key={review._id} className="review">
-                    <h3>Review:</h3>
-                    <h4>{review.text}</h4>
-                  </li>
-                ))
-              : <p className="no-review">No reviews.</p>
-            }
-          </ul>
-        </div>
+      )}
+      <div className="details-reviews">
+        <h2>Reviews:</h2>
+        <ul>
+          {movie.reviews && Object.keys(movie.reviews).length > 0
+            ? Object.values(movie.reviews).map(review => (
+              <div key={review._id} className="review review-border" style={{ border: '3px solid', padding: '15px', marginBottom: '15px' }}>
+                <h3>Review:</h3>
+                <h4>{review.text}</h4>
+              </div>
+            ))
+            : 
+            <div>
+              <p className="no-review">No reviews.</p>
+            </div>
+          }
+        </ul>
+      </div>
       </Card>
     </div>
   );
