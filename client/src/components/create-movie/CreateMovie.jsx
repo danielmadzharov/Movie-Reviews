@@ -21,18 +21,18 @@ export default function MovieCreate() {
     const navigate = useNavigate();
 
     const createHandler = async (values) => {
-        // Convert the genre string to an array
+
         const formattedValues = {
             ...values,
-            genre: values.genre.split(',').map(item => item.trim()),  // Split and trim the genre string
+            genre: values.genre.split(',').map(item => item.trim()), 
         };
 
         try {
             const { _id: movieId } = await movieApi.create(formattedValues);
 
-            navigate(`/movies/${movieId}/details`);
+            navigate(`/details/${movieId}`);
         } catch (err) {
-            // TODO: Set error state and display error
+
             console.log(err.message);
         }
     };
