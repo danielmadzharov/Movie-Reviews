@@ -8,6 +8,7 @@ import movieApi from '../../api/moviesApi';
 import reviewsApi from '../../api/movieReviewsApi'; 
 import styles from './Details.module.css';
 import { useAuthContext } from '../../contexts/authContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Details() {  
   const { movieId } = useParams();
@@ -15,6 +16,7 @@ export default function Details() {
   const [review, setReview] = useState('');
   const { isAuthenticated } = useAuthContext();
   const { email, userId } = useAuthContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     movieApi.getById(movieId).then(result => setMovie(result));
@@ -36,6 +38,14 @@ export default function Details() {
     setReview('');
   };
   const isOwner = userId == movie._ownerId;
+  const movieDeleteHandler = async () => {
+    try {
+      await movieApi.deleteById(movieId);
+      navigate('/');
+    } catch (error) {
+      console.error('Failed to delete the movie:', error);
+    }
+  };
 
   const { 
     name: title, 
@@ -66,7 +76,7 @@ export default function Details() {
           {isOwner && isAuthenticated &&(
           <div className='edit-delete-container'>
           <Button variant="contained" className='edit-btn' style={{margin: '10px'}}>Edit</Button>
-          <Button variant="contained" className='delete-btn'style={{margin: '10px'}}>Delete</Button>
+          <Button variant="contained" onClick={movieDeleteHandler} className='delete-btn'style={{margin: '10px'}}>Delete</Button>
           </div>
           )}
         </div>
