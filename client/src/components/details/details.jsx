@@ -1,43 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+
+import { useParams } from 'react-router-dom';
 import movieApi from '../../api/moviesApi';
-import reviewsApi from '../../api/movieReviewsApi'; 
+import { useGetOneMovie } from '../../hooks/useMovies';
 import styles from './Details.module.css';
+import { useForm } from '../../hooks/useForm';
+import { useGetAllReviews, useCreateReview } from '../../hooks/useReviews';
 import { useAuthContext } from '../../contexts/authContext';
-import { useNavigate } from 'react-router-dom';
+// import { useGetOneMovie } from '../../hooks/useMovies'; 
 
-export default function Details() {  
+
+const initialValues = {
+  review: ''
+};
+
+export default function Details() {
   const { movieId } = useParams();
-  const [movie, setMovie] = useState({});
-  const [review, setReview] = useState('');
-  const { isAuthenticated } = useAuthContext();
-  const { email, userId } = useAuthContext();
-  const navigate = useNavigate();
+  const [reviews, dispatch] = useGetAllReviews(movieId);
+  const createReview = useCreateReview();
+  const { email, userId, isAuthenticated } = useAuthContext();
+  const [movie] = useGetOneMovie(movieId);
 
-  useEffect(() => {
-    movieApi.getById(movieId).then(result => setMovie(result));
-  }, [movieId]);
+  const {
+    changeHandler,
+    submitHandler,
+    values
+  } = useForm(initialValues, async ({ review }) => {
+    try {
+      const newReview = await createReview(movieId, review);
+      dispatch({ type: 'ADD_REVIEW', payload: { ...newReview, author: { email } } });
+    } catch (err) {
+      console.log(err.message);
+    }
+  });
 
-  const handleReviewSubmit = async (e) => {
-    e.preventDefault();
+  const isOwner = userId === movie._ownerId;
 
-    const newReview = await reviewsApi.create(movieId, review);
 
-    setMovie(prevState => ({
-      ...prevState,
-      reviews: {
-        ...prevState.reviews,
-        [newReview._id]: newReview
-      }
-    }));
-
-    setReview('');
-  };
-  const isOwner = userId == movie._ownerId;
   const movieDeleteHandler = async () => {
     try {
       await movieApi.deleteById(movieId);
@@ -47,17 +49,17 @@ export default function Details() {
     }
   };
 
-  const { 
-    name: title, 
-    poster_url: posterUrl, 
-    year, 
-    certificate, 
-    runtime, 
-    genre, 
-    ratingValue, 
-    summary_text: summaryText, 
-    ratingCount, 
-    director 
+  const {
+    name: title,
+    poster_url: posterUrl,
+    year,
+    certificate,
+    runtime,
+    genre,
+    ratingValue,
+    summary_text: summaryText,
+    ratingCount,
+    director
   } = movie;
 
   return (
@@ -71,13 +73,12 @@ export default function Details() {
             height="500"
             image={posterUrl}
             className={styles.image}
-            
           />
-          {isOwner && isAuthenticated &&(
-          <div className='edit-delete-container'>
-          <Button variant="contained" className='edit-btn' style={{margin: '10px'}}>Edit</Button>
-          <Button variant="contained" onClick={movieDeleteHandler} className='delete-btn'style={{margin: '10px'}}>Delete</Button>
-          </div>
+          {isOwner && isAuthenticated && (
+            <div className='edit-delete-container'>
+              <Button variant="contained" className='edit-btn' style={{ margin: '10px' }}>Edit</Button>
+              <Button variant="contained" onClick={movieDeleteHandler} className='delete-btn' style={{ margin: '10px' }}>Delete</Button>
+            </div>
           )}
         </div>
         <div className={styles.details}>
@@ -96,50 +97,49 @@ export default function Details() {
         display: 'flex',
         flexDirection: 'column'
       }}>
+        {isAuthenticated && (
+          <form
+            onSubmit={submitHandler}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              flexWrap: 'nowrap',
+              justifyContent: 'space-evenly',
+              alignItems: 'center',
 
-      {isAuthenticated && (
-        <form 
-          onSubmit={handleReviewSubmit} 
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            flexWrap: 'nowrap',
-            justifyContent: 'space-evenly',
-            alignItems: 'center'
-          }}
-        >
-          <h3>Submit your review</h3>
-          <TextField
-            id="outlined-multiline-static"
-            multiline
-            minRows={5}
-            placeholder='Write your review...'
-            style={{ width: '500px' }}
-            value={review}
-            onChange={(e) => setReview(e.target.value)}
-          />
-          <Button type="submit" variant='contained' style={{ marginTop: '10px' }}>
-            Submit
-          </Button>
-        </form>
-      )}
+            }}
+          >
+            <h3>Submit your review</h3>
+            <TextField
+              id="outlined-multiline-static"
+              multiline
+              minRows={5}
+              placeholder='Write your review...'
+              style={{ width: '500px' }}
+              name='review'
+              value={values.review}
+              onChange={changeHandler}
+            />
+            <Button type="submit" variant='contained' style={{ marginTop: '10px' }}>
+              Submit
+            </Button>
+          </form>
+        )}
+
       <div className="details-reviews">
         <h2>Reviews:</h2>
         <ul>
-          {movie.reviews && Object.keys(movie.reviews).length > 0
-            ? Object.values(movie.reviews).map(review => (
-              <div key={review._id} className="review review-border" style={{ border: '3px solid', padding: '15px', marginBottom: '15px' }}>
-                <h3>Review:</h3>
-                <h4>{review.text}</h4>
-              </div>
-            ))
-            : 
-            <div>
-              <p className="no-review">No reviews.</p>
+          {reviews.map(review => (
+            <div key={review._id} className="review review-border" style={{ border: '3px solid', padding: '15px', marginBottom: '15px' }}>
+              <h3>{review.author.email}:</h3>
+              <h4>{review.text}</h4>
             </div>
-          }
+          ))}
         </ul>
+
+        {reviews.length === 0 && <p className="no-review">No reviews.</p>}
       </div>
+
       </Card>
     </div>
   );

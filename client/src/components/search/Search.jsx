@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import styles from '../catalog/Catalog.module.css';
-import { getAll } from '../../api/moviesApi';
 import { Link, useLocation } from 'react-router-dom';
 import DetailsButton from '../catalog/details-button/DetailsButton';
+import { useGetAllMovies } from '../../hooks/useMovies';
+
 
 export default function SearchResults() {
-    const [movies, setMovies] = useState([]);
     const location = useLocation();
     const query = new URLSearchParams(location.search).get('query') || '';
-
-    useEffect(() => {
-        getAll().then(result => setMovies(result));
-    }, []);
+    const [movies] = useGetAllMovies();
 
     const filteredMovies = movies.filter(movie =>
         movie.name.toLowerCase().includes(query.toLowerCase())

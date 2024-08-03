@@ -4,17 +4,13 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import Avatar from '@mui/material/Avatar';
 import styles from './Catalog.module.css'; 
-import { getAll } from '../../api/moviesApi';
 import { Link } from 'react-router-dom';
 import DetailsButton from './details-button/DetailsButton';
+import { useGetAllMovies } from '../../hooks/useMovies';
 
 export default function Catalog() {
-    const [movies, setMovies] = useState([]);
-
-    useEffect(() => {
-        getAll().then(result => setMovies(result));
-    }, []);
-
+    const [movies] = useGetAllMovies();
+    
     return (
         <div className={styles.catalogContainer}>
             {movies.map((movie) => (
