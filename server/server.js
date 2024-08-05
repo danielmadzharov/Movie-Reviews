@@ -1354,10 +1354,7 @@
                 "ratingValue": "9.3",
                 "summary_text": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
                 "ratingCount": "2,358,716",
-                "director": {
-                    "name": "Frank Darabont",
-                    "name_id": "nm0001104"
-                },
+                "director": "Frank Darabont",
                 "cast": [
                     {
                         "name": "Tim Robbins",
@@ -1392,10 +1389,7 @@
                 "ratingValue": "9.2",
                 "summary_text": "An organized crime dynasty's aging patriarch transfers control of his clandestine empire to his reluctant son.",
                 "ratingCount": "1,622,576",
-                "director": {
-                    "name": "Francis Ford Coppola",
-                    "name_id": "nm0000338"
-                },
+                "director": "Francis Ford Coppola",
                 "cast": [
                     {
                         "name": "Marlon Brando",
@@ -1430,10 +1424,7 @@
                 "ratingValue": "9.0",
                 "summary_text": "The early life and career of Vito Corleone in 1920s New York City is portrayed, while his son, Michael, expands and tightens his grip on the family crime syndicate.",
                 "ratingCount": "1,134,670",
-                "director": {
-                    "name": "Francis Ford Coppola",
-                    "name_id": "nm0000338"
-                },
+                "director": "Francis Ford Coppola",
                 "cast": [
                     {
                         "name": "Al Pacino",
@@ -1470,10 +1461,7 @@
                 "ratingValue": "9.0",
                 "summary_text": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
                 "ratingCount": "2,367,086",
-                "director": {
-                    "name": "Christopher Nolan",
-                    "name_id": "nm0634240"
-                },
+                "director": "Christopher Nolan",
                 "cast": [
                     {
                         "name": "Christian Bale",
@@ -1508,10 +1496,8 @@
                 "ratingValue": "8.9",
                 "summary_text": "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
                 "ratingCount": "1,883,911",
-                "director": {
-                    "name": "Quentin Tarantino",
-                    "name_id": "nm0000233"
-                },
+                "director": "Quentin Tarantino",
+
                 "cast": [
                     {
                         "name": "John Travolta",
@@ -1547,10 +1533,7 @@
                 "ratingValue": "8.9",
                 "summary_text": "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.",
                 "ratingCount": "1,234,594",
-                "director": {
-                    "name": "Steven Spielberg",
-                    "name_id": "nm0000229"
-                },
+                "director": "Steven Spielberg",
                 "cast": [
                     {
                         "name": "Liam Neeson",
@@ -1587,10 +1570,7 @@
                 "ratingValue": "8.9",
                 "summary_text": "Gandalf and Aragorn lead the World of Men against Sauron's army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring.",
                 "ratingCount": "1,731,368",
-                "director": {
-                    "name": "Peter Jackson",
-                    "name_id": "nm0001392"
-                },
+                "director": "Peter Jackson",
                 "cast": [
                     {
                         "name": "Elijah Wood",
@@ -1624,10 +1604,7 @@
                 "ratingValue": "8.8",
                 "summary_text": "An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.",
                 "ratingCount": "1,879,107",
-                "director": {
-                    "name": "David Fincher",
-                    "name_id": "nm0000399"
-                },
+                "director": "David Fincher",
                 "cast": [
                     {
                         "name": "Brad Pitt",
@@ -1664,10 +1641,8 @@
                 "ratingValue": "8.8",
                 "summary_text": "A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron.",
                 "ratingCount": "1,718,511",
-                "director": {
-                    "name": "Peter Jackson",
-                    "name_id": "nm0001392"
-                },
+                "director": "Peter Jackson",
+
                 "cast": [
                     {
                         "name": "Elijah Wood",
@@ -1704,10 +1679,7 @@
                 "ratingValue": "8.7",
                 "summary_text": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
                 "ratingCount": "2,145,053",
-                "director": {
-                    "name": "Christopher Nolan",
-                    "name_id": "nm0634240"
-                },
+                "director": "Christopher Nolan",
                 "cast": [
                     {
                         "name": "Leonardo DiCaprio",
@@ -1744,10 +1716,7 @@
                 "ratingValue": "8.7",
                 "summary_text": "While Frodo and Sam edge closer to Mordor with the help of the shifty Gollum, the divided fellowship makes a stand against Sauron's new ally, Saruman, and his hordes of Isengard.",
                 "ratingCount": "1,607,682",
-                "director": {
-                    "name": "Peter Jackson",
-                    "name_id": "nm0001392"
-                },
+                "director": "Peter Jackson",
                 "cast": [
                     {
                         "name": "Elijah Wood",
@@ -1784,10 +1753,7 @@
                 "ratingValue": "8.7",
                 "summary_text": "After the Rebels are brutally overpowered by the Empire on the ice planet Hoth, Luke Skywalker begins Jedi training with Yoda, while his friends are pursued by Darth Vader and a bounty hunter named Boba Fett all over the galaxy.",
                 "ratingCount": "1,268,904",
-                "director": {
-                    "name": "Irvin Kershner",
-                    "name_id": "nm0446782"
-                },
+                "director": "Irvin Kershner",
                 "cast": [
                     {
                         "name": "Mark Hamill",
@@ -1822,10 +1788,7 @@
                 "ratingValue": "8.7",
                 "summary_text": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
                 "ratingCount": "1,726,544",
-                "director": {
-                    "name": "Lana Wachowski",
-                    "name_id": "nm0905152"
-                },
+                "director": "Lana Wachowski",
                 "cast": [
                     {
                         "name": "Keanu Reeves",
@@ -1860,10 +1823,7 @@
                 "ratingValue": "8.8",
                 "summary_text": "The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate, and other historical events unfold through the perspective of an Alabama man with an IQ of 75, whose only desire is to be reunited with his childhood sweetheart.",
                 "ratingCount": "1,932,096",
-                "director": {
-                    "name": "Robert Zemeckis",
-                    "name_id": "nm0000709"
-                },
+                "director": "Robert Zemeckis",
                 "cast": [
                     {
                         "name": "Tom Hanks",
@@ -1898,10 +1858,7 @@
                 "ratingValue": "8.6",
                 "summary_text": "Following the Normandy Landings, a group of U.S. soldiers go behind enemy lines to retrieve a paratrooper whose brothers have been killed in action.",
                 "ratingCount": "1,273,013",
-                "director": {
-                    "name": "Steven Spielberg",
-                    "name_id": "nm0000229"
-                },
+                "director": "Steven Spielberg",
                 "cast": [
                     {
                         "name": "Tom Hanks",

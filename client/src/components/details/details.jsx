@@ -91,7 +91,7 @@ export default function Details() {
           <p>Rating: {ratingValue}</p>
           <p>Summary: {summaryText}</p>
           <p>Rating Count: {ratingCount}</p>
-          <p>Director: {director?.name}</p>
+          <p>Director: {director}</p>
         </div>
       </Card>
       <Card className={styles.card} style={{
