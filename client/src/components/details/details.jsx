@@ -2,15 +2,14 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import movieApi from '../../api/moviesApi';
 import { useGetOneMovie } from '../../hooks/useMovies';
 import styles from './Details.module.css';
 import { useForm } from '../../hooks/useForm';
 import { useGetAllReviews, useCreateReview } from '../../hooks/useReviews';
 import { useAuthContext } from '../../contexts/authContext';
-// import { useGetOneMovie } from '../../hooks/useMovies'; 
+
 
 
 const initialValues = {
@@ -23,6 +22,7 @@ export default function Details() {
   const createReview = useCreateReview();
   const { email, userId, isAuthenticated } = useAuthContext();
   const [movie] = useGetOneMovie(movieId);
+  const navigate = useNavigate()
 
   const {
     changeHandler,
@@ -76,7 +76,9 @@ export default function Details() {
           />
           {isOwner && isAuthenticated && (
             <div className='edit-delete-container'>
+              <Link to={`/edit/${movieId}`}>
               <Button variant="contained" className='edit-btn' style={{ margin: '10px' }}>Edit</Button>
+              </Link>
               <Button variant="contained" onClick={movieDeleteHandler} className='delete-btn' style={{ margin: '10px' }}>Delete</Button>
             </div>
           )}
@@ -85,7 +87,7 @@ export default function Details() {
           <p>Year: {year}</p>
           <p>Certificate: {certificate}</p>
           <p>Runtime: {runtime}</p>
-          <p>Genre: {genre?.join(', ')}</p>
+          <p>Genre: {genre}</p>
           <p>Rating: {ratingValue}</p>
           <p>Summary: {summaryText}</p>
           <p>Rating Count: {ratingCount}</p>

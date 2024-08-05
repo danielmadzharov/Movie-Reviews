@@ -5,10 +5,13 @@ export const useGetOneMovie = (movieId) => {
   const [movie, setMovie] = useState({});
 
   useEffect(() => {
-    movieApi.getById(movieId).then(result => setMovie(result));
+    (async () => {
+      const result = await movieApi.getById(movieId);
+      setMovie(result);
+    })();
   }, [movieId]);
 
-  return [movie];
+  return [movie, setMovie];
 };
 
 export const useGetAllMovies = () => {

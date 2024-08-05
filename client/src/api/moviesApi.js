@@ -8,16 +8,18 @@ export const getAll =  async () => {
 }
 export const getById = async (movieId) => requester.get(`${BASE_URL}/${movieId}`);
 
-
 export const create = (movieData) => requester.post(`${BASE_URL}`, movieData)
 
 export const deleteById = (movieId) => requester.del(`${BASE_URL}/${movieId}`);
+
+export const editMovie = (movieId, movieData) => requester.put(`${BASE_URL}/${movieId}`, movieData)
 
 const movieApi = {
     getAll,
     getById,
     create,
-    deleteById
+    deleteById,
+    editMovie
 }
 
 export default movieApi;

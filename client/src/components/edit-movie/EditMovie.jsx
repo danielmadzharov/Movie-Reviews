@@ -1,8 +1,9 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm.js';
 import movieApi from '../../api/moviesApi.js';
 import { Box, Typography, FormControl, TextField, Button } from '@mui/material';
+import { useGetOneMovie } from '../../hooks/useMovies.js';
 
 const initialValues = {
     name: '',
@@ -17,23 +18,19 @@ const initialValues = {
     director: '',
 };
 
-export default function MovieCreate() {
+export default function EditMovie() {
     const navigate = useNavigate();
-
-    const createHandler = async (values) => {
-        try {
-            const { _id: movieId } = await movieApi.create(values);
-            navigate(`/details/${movieId}`);
-        } catch (err) {
-            console.log(err.message);
-        }
-    };
-
-    const { values, changeHandler, submitHandler } = useForm(initialValues, createHandler);
+    const {movieId} = useParams();
+    const [editMovie, setEditMovie] = useGetOneMovie(movieId)
+    const {changeHandler, submitHandler, values} = useForm(Object.assign(initialValues, editMovie), async (values) => {
+        const updateMovie = await movieApi.editMovie(movieId, values);
+        setEditMovie(updateMovie);
+        navigate(`/details/${movieId}`);
+})
 
     return (
         <Box p={3} style={{ width: '800px', margin: '0 auto', padding: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', backgroundColor: '#fff' }}>
-            <Typography variant="h4" gutterBottom>Create Movie</Typography>
+            <Typography variant="h4" gutterBottom>Edit Movie</Typography>
             <FormControl fullWidth>
                 <TextField
                     label="Name"

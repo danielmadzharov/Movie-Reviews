@@ -9,6 +9,7 @@ import { AuthContextProvider } from './contexts/authContext';
 import Logout from './components/logout/Logout';
 import CreateMovie from './components/create-movie/CreateMovie';
 import NotFound from './components/404/404';
+import EditMovie from './components/edit-movie/EditMovie';
 
 function App() {
   return (
@@ -20,9 +21,10 @@ function App() {
     <Route path='/login' element={<Login/>}/>
     <Route path='/register' element={<Register/>}/>
     <Route path='/details/:movieId' element={<Details/>}/>
-    <Route path='/logout' element={<Logout />} />
-    <Route path='/search/' element={<SearchResults/>}/>
+    <Route path='/edit/:movieId' element={<EditMovie/>} />
     <Route path='/create' element={<CreateMovie/>}/>
+    <Route path='/search/' element={<SearchResults/>}/>
+    <Route path='/logout' element={<Logout />} />
     <Route path='*' element={<NotFound/>} />
     </Routes>
     </div>
