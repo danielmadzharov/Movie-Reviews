@@ -8,6 +8,7 @@ import SearchResults from './components/search/Search';
 import { AuthContextProvider } from './contexts/authContext';
 import Logout from './components/logout/Logout';
 import CreateMovie from './components/create-movie/CreateMovie';
+import NotFound from './components/404/404';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
     <Route path='/logout' element={<Logout />} />
     <Route path='/search/' element={<SearchResults/>}/>
     <Route path='/create' element={<CreateMovie/>}/>
+    <Route path='*' element={<NotFound/>} />
     </Routes>
     </div>
     </AuthContextProvider>
