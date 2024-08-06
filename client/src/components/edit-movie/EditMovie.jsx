@@ -52,6 +52,7 @@ export default function EditMovie() {
                     label="Year"
                     variant="outlined"
                     name="year"
+                    type='number'
                     value={values.year}
                     onChange={changeHandler}
                     margin="normal"
@@ -68,6 +69,7 @@ export default function EditMovie() {
                     label="Runtime"
                     variant="outlined"
                     name="runtime"
+                    type='number'
                     value={values.runtime}
                     onChange={changeHandler}
                     margin="normal"
@@ -83,6 +85,7 @@ export default function EditMovie() {
                 <TextField
                     label="Rating Value"
                     variant="outlined"
+                    type='number'
                     name="ratingValue"
                     value={values.ratingValue}
                     onChange={changeHandler}
@@ -102,6 +105,7 @@ export default function EditMovie() {
                     label="Rating Count"
                     variant="outlined"
                     name="ratingCount"
+                    type='number'
                     value={values.ratingCount}
                     onChange={changeHandler}
                     margin="normal"
