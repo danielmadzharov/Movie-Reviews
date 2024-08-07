@@ -99,7 +99,7 @@ export default function Details() {
         display: 'flex',
         flexDirection: 'column'
       }}>
-        {isAuthenticated && (
+        {isAuthenticated && !isOwner && (
           <form
             onSubmit={submitHandler}
             style={{
